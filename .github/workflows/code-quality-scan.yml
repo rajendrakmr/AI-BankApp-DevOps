@@ -1,21 +1,27 @@
-name: Code Quality Checking
+name: Code Quality
 
 on:
-    workflow_call:
+  workflow_call:
 
 jobs:
-    code-quality:
-        runs-on: ubuntu-latest
-        steps:
-            - name: code checkout
-              uses: actions/checkout@v4 
-              with:
-                fetch-depth: 0
+  code-quality:
+    runs-on: ubuntu-latest
 
-            - name: super linter
-              uses: super-linter/super-linter@v8.5.0
-              env:
-                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                VALIDATE_JAVA: true 
-                VALIDATE_ALL_CODEBASE: false #
-                DISABLE_ERRORS: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Compile project
+        run: mvn clean compile
+
+      - name: Super Linter
+        uses: super-linter/super-linter@v8.5.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VALIDATE_JAVA: true
