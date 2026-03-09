@@ -1,0 +1,8 @@
+name: End to End DevSecOps Pipeline
+
+on:
+    push:
+        branches: [ rajendra ]
+jobs:
+    code-quality-scan:
+        uses: ./.github/workflows/code-quality-scan.yml

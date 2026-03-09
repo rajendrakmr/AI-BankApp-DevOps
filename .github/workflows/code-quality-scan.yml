@@ -1,0 +1,20 @@
+name: Code Quality Checking
+
+on:
+    workflow_call:
+
+jobs:
+    code-quality:
+        runs-on: ubuntu-latest
+        steps:
+            - name: code checkout
+              uses: actions/checkout@v4 
+              with:
+                fetch-depth: 0
+
+            - name: super linter
+              uses: super-linter/super-linter@v8.5.0
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                VALIDATE_JAVA: true 
+                VALIDATE_ALL_CODEBASE: false #
