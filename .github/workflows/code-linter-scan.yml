@@ -5,9 +5,9 @@ on:
   workflow_call:
 
 jobs:
-  
   scan:
-    runs-on: ubuntu-latest 
+    runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -30,3 +30,4 @@ jobs:
           VALIDATE_JAVA: false
           DEFAULT_BRANCH: rajendra
           VALIDATE_ALL_CODEBASE: true
+          

@@ -7,6 +7,7 @@ on:
 jobs:
     scan:
         runs-on: ubuntu-latest
+
         steps:
             - name: code checkout
               uses: actions/checkout@v4 
@@ -15,3 +16,4 @@ jobs:
               uses: hadolint/hadolint-action@v3.1.0
               with:
                 dockerfile: Dockerfile
+                

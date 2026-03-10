@@ -7,6 +7,7 @@ on:
 jobs:
     docker-image:
         runs-on: ubuntu-latest
+
         steps:
             - name: code checkout
               uses: actions/checkout@v4 
@@ -26,3 +27,4 @@ jobs:
                     ${{ vars.DOCKERHUB_USER }}/ai-bank-app:${{ github.ref_name }}
                     ${{ vars.DOCKERHUB_USER }}/ai-bank-app:latest
                     ${{ vars.DOCKERHUB_USER }}/ai-bank-app:${{ github.sha }}
+                    

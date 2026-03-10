@@ -5,9 +5,7 @@ on:
   workflow_call:
 
 jobs:
-
-  scan:
-    
+  scan: 
     runs-on: ubuntu-latest
 
     steps:
@@ -27,4 +25,5 @@ jobs:
 
       - name: code quality check
         run: echo "done"
+
         
