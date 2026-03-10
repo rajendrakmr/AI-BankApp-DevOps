@@ -25,3 +25,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_JAVA: true
+          DEFAULT_BRANCH: rajendra
+
+    #   - name: SonarQube Scan
+    #     run: |
+    #       mvn sonar:sonar \
+    #       -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
+    #       -Dsonar.login=${{ secrets.SONAR_TOKEN }}

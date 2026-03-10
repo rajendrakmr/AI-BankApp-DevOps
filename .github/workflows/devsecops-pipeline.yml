@@ -6,3 +6,4 @@ on:
 jobs:
     code-quality-scan:
         uses: ./.github/workflows/code-quality-scan.yml
+        secrets: inherit
