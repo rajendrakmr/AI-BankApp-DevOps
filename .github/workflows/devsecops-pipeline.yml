@@ -17,3 +17,7 @@ jobs:
     
     secrets:
         uses: ./.github/workflows/secrets-scan.yml
+    
+    build-and-push:
+        uses: ./.github/workflows/docker-build-push.yml
+        needs: [code-quality,docker-file,secrets]
