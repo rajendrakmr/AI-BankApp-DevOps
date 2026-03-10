@@ -31,5 +31,5 @@ jobs:
 
   trivy:
     uses: ./.github/workflows/trivy-image-scan.yml
-    needs: [code-linter,build-and-push]
+    needs: [code-linter, build-and-push]
     secrets: inherit

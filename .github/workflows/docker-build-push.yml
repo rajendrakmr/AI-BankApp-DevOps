@@ -2,29 +2,29 @@
 name: Docker image build and push
 
 on:
-    workflow_call:
+  workflow_call:
 
 jobs:
-    docker-image:
-        runs-on: ubuntu-latest
+  docker-image:
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: code checkout
-              uses: actions/checkout@v4 
+    steps:
+      - name: Code checkout
+        uses: actions/checkout@v4
 
-            - name: docker login 
-              uses: docker/login-action@v3
-              with:
-                username: ${{ vars.DOCKERHUB_USER }}
-                password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Docker login
+        uses: docker/login-action@v3
+        with:
+          username: ${{ vars.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-            - name: buil and push
-              uses: docker/build-push-action@v6
-              with:
-                context: .
-                push: true 
-                tags: |
-                    ${{ vars.DOCKERHUB_USER }}/ai-bank-app:${{ github.ref_name }}
-                    ${{ vars.DOCKERHUB_USER }}/ai-bank-app:latest
-                    ${{ vars.DOCKERHUB_USER }}/ai-bank-app:${{ github.sha }}
-                    
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ vars.DOCKERHUB_USER }}/ai-bank-app:${{ github.ref_name }}
+            ${{ vars.DOCKERHUB_USER }}/ai-bank-app:latest
+            ${{ vars.DOCKERHUB_USER }}/ai-bank-app:${{ github.sha }}
+            
