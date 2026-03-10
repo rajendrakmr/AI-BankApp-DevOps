@@ -25,6 +25,6 @@ jobs:
         uses: super-linter/super-linter@v8.5.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VALIDATE_JAVA: false
+          VALIDATE_JAVA: true
           DEFAULT_BRANCH: rajendra
           VALIDATE_ALL_CODEBASE: true
