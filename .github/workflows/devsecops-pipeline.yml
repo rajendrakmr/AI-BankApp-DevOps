@@ -13,4 +13,7 @@ jobs:
         secrets: inherit
 
     docker-file:
-        uses: ./.github/workflows/docker-file-scan.yml 
+        uses: ./.github/workflows/docker-file-scan.yml
+    
+    secrets:
+        uses: ./.github/workflows/secrets-scan.yml
