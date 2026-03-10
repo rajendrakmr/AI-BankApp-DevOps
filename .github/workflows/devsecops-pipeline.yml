@@ -25,10 +25,15 @@ jobs:
 
   build-and-push:
     uses: ./.github/workflows/docker-build-push.yml
-    needs: [check, code-quality, docker-file, secrets]
+    needs: [code-linter, check, code-quality, docker-file, secrets]
     secrets: inherit
 
   trivy:
     uses: ./.github/workflows/trivy-image-scan.yml
     needs: [check, code-quality, build-and-push]
+    secrets: inherit
+
+  deploy:
+    uses: ./.github/workflows/deploy-to-server.yml
+    needs: [build-and-push, trivy]
     secrets: inherit
