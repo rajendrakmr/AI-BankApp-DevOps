@@ -1,32 +1,35 @@
+---
 name: End to End DevSecOps Pipeline
 
 on:
-    push:
-        branches: [ rajendra ]
+  push:
+    branches: [rajendra]
+
 jobs:
-    code-linter:
-        uses: ./.github/workflows/code-linter-scan.yml
-        secrets: inherit
+  code-linter:
+    uses: ./.github/workflows/code-linter-scan.yml
+    secrets: inherit
 
-    check:
-        uses: ./.github/workflows/dependency-check.yml 
+  check:
+    uses: ./.github/workflows/dependency-check.yml
 
-    code-quality:
-        uses: ./.github/workflows/code-quality-scan.yml
-        secrets: inherit
+  code-quality:
+    needs: [code-linter]
+    uses: ./.github/workflows/code-quality-scan.yml
+    secrets: inherit
 
-    docker-file:
-        uses: ./.github/workflows/docker-file-scan.yml
-    
-    secrets:
-        uses: ./.github/workflows/secrets-scan.yml
-    
-    build-and-push:
-        uses: ./.github/workflows/docker-build-push.yml
-        needs: [code-quality,check,docker-file,secrets]
-        secrets: inherit
+  docker-file:
+    uses: ./.github/workflows/docker-file-scan.yml
 
-    trivy:
-        uses: ./.github/workflows/trivy-image-scan.yml
-        needs: [docker-file,build-and-push]
-        secrets: inherit
+  secrets:
+    uses: ./.github/workflows/secrets-scan.yml
+
+  build-and-push:
+    uses: ./.github/workflows/docker-build-push.yml
+    needs: [code-linter, check, code-quality, docker-file, secrets]
+    secrets: inherit
+
+  trivy:
+    uses: ./.github/workflows/trivy-image-scan.yml
+    needs: [code-linter, build-and-push]
+    secrets: inherit
