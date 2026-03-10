@@ -4,6 +4,7 @@ name: End to End DevSecOps Pipeline
 on:
     push:
         branches: [ rajendra ]
+    
 jobs:
     code-linter:
         uses: ./.github/workflows/code-linter-scan.yml
