@@ -4,12 +4,14 @@ on:
   workflow_call:
 
 jobs:
-  code-quality:
+  scan:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -27,9 +29,3 @@ jobs:
           VALIDATE_JAVA: true
           DEFAULT_BRANCH: rajendra
           VALIDATE_ALL_CODEBASE: true
-
-    #   - name: SonarQube Scan
-    #     run: |
-    #       mvn sonar:sonar \
-    #       -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
-    #       -Dsonar.login=${{ secrets.SONAR_TOKEN }}

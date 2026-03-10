@@ -4,6 +4,6 @@ on:
     push:
         branches: [ rajendra ]
 jobs:
-    code-quality-scan:
+    code-quality:
         uses: ./.github/workflows/code-quality-scan.yml
         secrets: inherit
