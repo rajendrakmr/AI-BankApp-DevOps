@@ -1,0 +1,13 @@
+name: End to End DevSecOps Pipeline
+
+on:
+    push:
+        branches: [ rajendra ]
+jobs:
+    code-linter:
+        uses: ./.github/workflows/code-linter-scan.yml
+        secrets: inherit
+        
+    code-quality:
+        uses: ./.github/workflows/code-quality-scan.yml
+        secrets: inherit
