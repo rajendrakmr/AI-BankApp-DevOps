@@ -7,7 +7,10 @@ jobs:
     code-linter:
         uses: ./.github/workflows/code-linter-scan.yml
         secrets: inherit
-        
+
     code-quality:
         uses: ./.github/workflows/code-quality-scan.yml
         secrets: inherit
+
+    docker-file:
+        uses: ./.github/workflows/docker-file-scan.yml 
