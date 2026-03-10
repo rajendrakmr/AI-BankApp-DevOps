@@ -17,8 +17,8 @@ FROM eclipse-temurin:21-jre-jammy
 WORKDIR /app
 
 # copy jar from builder
-COPY --from=builder /app/target/*.jar app.jar
+COPY --from=builder /app/target/*.jar /app/target/app.jar
 
 EXPOSE 8080
 
-ENTRYPOINT ["java","-jar","app.jar"]
+ENTRYPOINT ["java","-jar","/app/target/app.jar"]
