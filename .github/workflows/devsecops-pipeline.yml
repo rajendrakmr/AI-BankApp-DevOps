@@ -21,3 +21,4 @@ jobs:
     build-and-push:
         uses: ./.github/workflows/docker-build-push.yml
         needs: [code-quality,docker-file,secrets]
+        secrets: inherit
