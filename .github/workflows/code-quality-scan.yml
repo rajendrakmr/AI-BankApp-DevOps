@@ -26,6 +26,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_JAVA: true
           DEFAULT_BRANCH: rajendra
+          VALIDATE_ALL_CODEBASE: true
 
     #   - name: SonarQube Scan
     #     run: |
