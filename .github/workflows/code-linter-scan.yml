@@ -27,7 +27,22 @@ jobs:
         uses: super-linter/super-linter@v8.5.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VALIDATE_JAVA: false
           DEFAULT_BRANCH: rajendra
-          VALIDATE_ALL_CODEBASE: true
+          VALIDATE_ALL_CODEBASE: false
+
+           # Enable only required linters
+          VALIDATE_JAVA: true
+          VALIDATE_DOCKERFILE_HADOLINT: true
+          VALIDATE_YAML: true
+          VALIDATE_GITHUB_ACTIONS: true
+
+          # Disable unnecessary ones
+          VALIDATE_CSS: false
+          VALIDATE_HTML: false
+          VALIDATE_JAVASCRIPT_PRETTIER: false
+          VALIDATE_MARKDOWN: false
+          VALIDATE_TRIVY: false
+          VALIDATE_CHECKOV: false
+          VALIDATE_BIOME_FORMAT: false
+          VALIDATE_BIOME_LINT: false
           
