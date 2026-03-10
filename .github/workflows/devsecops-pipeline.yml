@@ -13,8 +13,7 @@ jobs:
   check:
     uses: ./.github/workflows/dependency-check.yml
 
-  code-quality:
-    needs: [code-linter]
+  code-quality: 
     uses: ./.github/workflows/code-quality-scan.yml
     secrets: inherit
 
@@ -31,5 +30,5 @@ jobs:
 
   trivy:
     uses: ./.github/workflows/trivy-image-scan.yml
-    needs: [code-linter, build-and-push]
+    needs: [check, code-quality, build-and-push]
     secrets: inherit

@@ -1,0 +1,41 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: Test@121
+      MYSQL_DATABASE: bankappdb
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - bankapp
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+
+  bankapp:
+    image: cloudwithrk/ai-bank-app:latest
+    container_name: ai-bank-app
+    environment:
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: Test@121
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/bankappdb?useSSL=false&allowPublicKeyRetrieval=true
+    ports:
+      - "8080:8080"
+    networks:
+      - bankapp
+    restart: always
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+networks:
+  bankapp:
+
+volumes:
+  mysql-data:
