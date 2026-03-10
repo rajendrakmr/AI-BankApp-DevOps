@@ -16,9 +16,16 @@ jobs:
         with:
           distribution: temurin
           java-version: '21'
-
+        
+      - name: Verify Java
+        run: |
+          echo $JAVA_HOME
+          java -version
+    
       - name: OWASP Dependency Check
         uses: dependency-check/Dependency-Check_Action@main
+        env:
+            JAVA_HOME: /opt/jdk
         with:
           project: "bankapp"
           path: "."
