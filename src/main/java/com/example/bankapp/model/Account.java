@@ -20,33 +20,36 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Entity representing a bank account in the system.
- * Implements UserDetails for Spring Security authentication.
+ * Represents a bank account in the system.
  */
 @Entity
 @Table(name = "accounts")
 public final class Account implements UserDetails {
 
+    /** Balance precision constant. */
     private static final int BALANCE_PRECISION = 19;
+
+    /** Balance scale constant. */
     private static final int BALANCE_SCALE = 2;
 
+    /** Account ID. */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /** Account username. */
     @Column(unique = true, nullable = false)
     private String username;
 
+    /** Account password. */
     @Column(nullable = false)
     private String password;
 
-    @Column(
-        nullable = false,
-        precision = BALANCE_PRECISION,
-        scale = BALANCE_SCALE
-    )
+    /** Account balance. */
+    @Column(nullable = false, precision = BALANCE_PRECISION, scale = BALANCE_SCALE)
     private BigDecimal balance = BigDecimal.ZERO;
 
+    /** Transactions belonging to this account. */
     @OneToMany(
         mappedBy = "account",
         cascade = CascadeType.ALL,
@@ -54,19 +57,19 @@ public final class Account implements UserDetails {
     )
     private List<Transaction> transactions = new ArrayList<>();
 
-    /** Default constructor for JPA. */
+    /** Default constructor. */
     public Account() {
     }
 
     /**
-     * Constructor for creating a new account.
+     * Creates an account.
      *
-     * @param username account username
-     * @param password account password
+     * @param userName username
+     * @param userPassword password
      */
-    public Account(final String username, final String password) {
-        this.username = username;
-        this.password = password;
+    public Account(final String userName, final String userPassword) {
+        this.username = userName;
+        this.password = userPassword;
         this.balance = BigDecimal.ZERO;
     }
 
@@ -75,7 +78,7 @@ public final class Account implements UserDetails {
         return id;
     }
 
-    /** @param newId new account id */
+    /** @param newId account id */
     public void setId(final Long newId) {
         this.id = newId;
     }
@@ -86,7 +89,7 @@ public final class Account implements UserDetails {
         return username;
     }
 
-    /** @param newUsername username to set */
+    /** @param newUsername username */
     public void setUsername(final String newUsername) {
         this.username = newUsername;
     }
@@ -97,7 +100,7 @@ public final class Account implements UserDetails {
         return password;
     }
 
-    /** @param newPassword password to set */
+    /** @param newPassword password */
     public void setPassword(final String newPassword) {
         this.password = newPassword;
     }
@@ -107,46 +110,46 @@ public final class Account implements UserDetails {
         return balance;
     }
 
-    /** @param newBalance balance to set */
+    /** @param newBalance balance */
     public void setBalance(final BigDecimal newBalance) {
         this.balance = newBalance;
     }
 
-    /** @return list of transactions */
+    /** @return transactions */
     public List<Transaction> getTransactions() {
         return transactions;
     }
 
-    /** @param newTransactions transaction list */
+    /** @param newTransactions transactions */
     public void setTransactions(final List<Transaction> newTransactions) {
         this.transactions = newTransactions;
     }
 
-    /** @return user authorities */
+    /** {@inheritDoc} */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
-    /** @return account expiration status */
+    /** {@inheritDoc} */
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
-    /** @return account locked status */
+    /** {@inheritDoc} */
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
-    /** @return credentials expiration status */
+    /** {@inheritDoc} */
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
-    /** @return enabled status */
+    /** {@inheritDoc} */
     @Override
     public boolean isEnabled() {
         return true;
